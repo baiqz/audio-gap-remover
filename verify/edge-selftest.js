@@ -1,6 +1,7 @@
 /* ============================================================
  * 真浏览器验证（无头 Edge + CDP，真实时钟）：
- *   1) 打开 dist 单文件页（?selftest=1），等页内自检把报告写进 #selftestOut
+ *   1) 打开站点入口（默认根 index.html，也可传线上网址）加 ?selftest=1，
+ *      等页内自检把报告写进 #selftestOut
  *   2) 断言自检结果
  *   3) 顺手截一张整页 PNG，用来目检版式
  * 为什么不用 --virtual-time-budget：虚拟时钟与 decodeAudioData 的后台线程冲突，
@@ -29,7 +30,8 @@ function ok(cond, label, extra) {
 }
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-function toUrl(p) { return 'file:///' + p.replace(/\\/g, '/'); }
+// 本地文件转 file:// URL；已经是 http(s) 网址（比如线上 Pages）则原样使用
+function toUrl(p) { return /^https?:\/\//i.test(p) ? p : 'file:///' + p.replace(/\\/g, '/'); }
 
 async function main() {
   const url = toUrl(TARGET) + '?selftest=1';
