@@ -1,0 +1,16 @@
+# 临时工作区（语法检查中间件、无头浏览器 dump）
+_scratch/
+
+# 依赖
+node_modules/
+
+# 验证过程中生成的产物 / 报告（每次跑 verify 都会重新生成）
+verify/*.wav
+verify/*.mp3
+verify/*.png
+verify/*.txt
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
